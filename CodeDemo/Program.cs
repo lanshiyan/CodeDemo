@@ -10,7 +10,6 @@ namespace CodeDemo
     {
         static void Main(string[] args)
         {
-            //测试
         }
     }
 }
