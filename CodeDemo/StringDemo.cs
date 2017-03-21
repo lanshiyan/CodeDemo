@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -143,6 +144,34 @@ namespace CodeDemo
 
             #endregion
 
+            #region byte数组
+            //string temp = "12345678990";
+            //byte[] bts = Encoding.UTF8.GetBytes(temp);
+            //foreach (var bt in bts)
+            //{
+            //    Console.WriteLine(bt);//返回ASCII值
+            //}
+            //Console.WriteLine($"byte数组长度是：{bts.Length}");
+            //Console.WriteLine(Encoding.UTF8.GetString(bts));
+            #endregion
+
+            #region 邮件测试
+
+            //EmailHelper email=new EmailHelper("smtp.163.com", "1304679383@qq.com", "lanshiyan815@163.com", "08155180", "测试", "这是一封测试邮件：http://www.baidu.com", true, false);
+            //email.SendWithoutAttachments();
+
+            #endregion
+
+            #region 边界类
+
+            //dynamic temp = new ExpandoObject();
+            //temp.tag = "测试";
+            //temp.age = 12;
+            //BorderClass(temp);
+
+            #endregion
+
+
         }
 
         #region 测试方法
@@ -238,6 +267,14 @@ namespace CodeDemo
 
         #endregion
 
+        #region 边界类
+
+        //不知道理解的是否正确，在参数太多的情况下，定义一个参数“集合”（各个参数的类型不一致），将集合的内容暴露给外部，在调用此方法的时候，根据“集合”内容传入参数。这样的参数集合构成的边界类并没有实际的实体意义，只是可以帮助开发人员识别需求
+        public void BorderClass(dynamic expando)
+        {
+            Console.WriteLine($"tag:{expando.tag};age:{expando.age}");
+        }
+        #endregion
 
         #endregion
 
