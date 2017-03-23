@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -162,15 +165,64 @@ namespace CodeDemo
 
             #endregion
 
-            #region 边界类
+            #region 边界类 动态 及匿名类
 
             //dynamic temp = new ExpandoObject();
             //temp.tag = "测试";
             //temp.age = 12;
             //BorderClass(temp);
 
+            //动态可以与匿名类结合
+            //集合的声明中不能出现匿名类，但是可以使用动态来代替匿名类  
+            //然后在向集合中添加对象时使用匿名 
+            //避免重新声明类  针对只使用一次的对象
+
+            //List<dynamic> list = new List<dynamic>();
+            //list.Add(new { Name = "1" });
+            //list.Add(new { Name = "2" });
+            //foreach (dynamic o in list)
+            //{
+            //    Console.WriteLine(o.Name);
+            //}
+
             #endregion
 
+            #region 二进制运算 与& 或| 非！
+
+            //真值表
+            //Console.WriteLine(true & true);
+            //Console.WriteLine(true & false);
+            //Console.WriteLine(false & false);
+            //Console.WriteLine(true | true);
+            //Console.WriteLine(true | false);
+            //Console.WriteLine(false | false);
+
+            #endregion
+
+            #region GroupBy and OrderBy
+
+            //IList<Test> list = new List<Test>()
+            //{
+            //        new Test() {Age = 18, Id =  1, Name = "152"},
+            //        new Test() {Age = 17, Id = 6, Name = "273"},
+            //        new Test() {Age = 19, Id = 2, Name = "453"},
+            //        new Test() {Age = 19, Id = 4, Name = "812"},
+            //        new Test() {Age = 18, Id = 3, Name = "213"},
+            //        new Test() {Age = 19, Id = 5, Name = "645"},
+            //        new Test() {Age = 17, Id = 7, Name = "789"}
+            //};
+
+            //var res = list.GroupBy(t => t.Age).OrderBy(t => t.Key);//返回的是IOrderedEnumerable<TSource> ,这是先分组再排序
+            ////var res1 = list.OrderBy(t => t.Age).GroupBy(t => t.Age);//返回的是IEnumerable<IGrouping<TKey, TSource>>，这是先排序再分组
+            //foreach (var group in res)
+            //{
+            //    foreach (Test test in group)
+            //    {
+            //        Console.WriteLine($"{group.Key}:age={test.Age},name={test.Name}");
+            //    }
+            //}
+
+            #endregion
 
         }
 
@@ -268,12 +320,14 @@ namespace CodeDemo
         #endregion
 
         #region 边界类
+        //边界类描述外部参与者与系统之间的交互。例如表单、对话框、菜单、接口。
 
         //不知道理解的是否正确，在参数太多的情况下，定义一个参数“集合”（各个参数的类型不一致），将集合的内容暴露给外部，在调用此方法的时候，根据“集合”内容传入参数。这样的参数集合构成的边界类并没有实际的实体意义，只是可以帮助开发人员识别需求
         public void BorderClass(dynamic expando)
         {
             Console.WriteLine($"tag:{expando.tag};age:{expando.age}");
         }
+
         #endregion
 
         #endregion
