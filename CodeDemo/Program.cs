@@ -31,7 +31,7 @@ namespace CodeDemo
             IDemo demo = new StringDemo();
             demo.DemoTest();
 #endif
-
+           
         }
 
         private static IDemo GetDemoInit(string key)
