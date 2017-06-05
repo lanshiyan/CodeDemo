@@ -16,10 +16,24 @@ namespace Wpf2Word
 {
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// 使用后台线程避免界面假死
+        /// </summary>
+        private BackgroundWorker bgw;
         public Form1()
         {
             InitializeComponent();
+            bgw = new BackgroundWorker();
+            bgw.DoWork += Bgw_DoWork;
+        }
 
+        private void Bgw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var selectDir = e.Argument as DirectoryInfo;
+            if (selectDir != null)
+            {
+                CycleTraver(selectDir);
+            }
         }
 
         private void btnFolderSelect_Click(object sender, EventArgs e)
@@ -38,7 +52,8 @@ namespace Wpf2Word
                 textBox1.AppendText($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}   目录{txtFolder.Text}不存在\n");
                 return;
             }
-            CycleTraver(selectDir);
+            //CycleTraver(selectDir);
+            bgw.RunWorkerAsync(selectDir);
         }
 
         private void CycleTraver(DirectoryInfo dir)
@@ -46,10 +61,6 @@ namespace Wpf2Word
             foreach (var fileInfo in dir.GetFiles("*.pdf"))
             {
                 Wpf2Word(fileInfo);
-                //BackgroundWorker thread = new BackgroundWorker();
-                //thread.DoWork += ThreadOnDoWork;
-                //thread.RunWorkerAsync(fileInfo);
-
             }
             textBox1.AppendText($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}   目录{dir.Name}下文件转换完毕\n");
             foreach (var info in dir.GetDirectories())
@@ -58,14 +69,6 @@ namespace Wpf2Word
             }
         }
 
-        //private void ThreadOnDoWork(object sender, DoWorkEventArgs doWorkEventArgs)
-        //{
-        //    FileInfo file = doWorkEventArgs.Argument as FileInfo;
-        //    if (file != null)
-        //    {
-        //        Wpf2Word(file);
-        //    }
-        //}
 
         private void Wpf2Word(FileInfo file)
         {
@@ -82,10 +85,6 @@ namespace Wpf2Word
             }
         }
 
-        private void Show(string msg)
-        {
-            textBox1.AppendText(msg);
-        }
     }
 
 
