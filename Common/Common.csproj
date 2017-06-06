@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,9 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtendFunc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="documents\codefirst及数据迁移.txt" />
+    <Content Include="documents\Swagger和WebApi.txt" />
     <Content Include="lib\aspose\Aspose.BarCode.dll" />
     <Content Include="lib\aspose\Aspose.BarCode.xml" />
     <Content Include="lib\aspose\Aspose.BarCodeRecognition.dll" />

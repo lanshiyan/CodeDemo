@@ -1,0 +1,6 @@
+﻿swagger是webapi开发的一个很好的辅助工具，使用简单。使webapi的调试更加便捷。
+创建webapi项目之后，使用Nuget控制器为项目添加Swashbuckle和Swagger4Net。
+1.在api项目属性中将生成下输出中的xml文档勾选，不必更改路径
+2.在api项目app_start文件夹下的SwaggerNet.cs中命名空间上面的引用给注释掉，应该是nuget没有更新导致的（毕竟swagger停止更新很久了）.
+3.运行项目，在端口号后面输入swagger会自动跳转到swagger/ui/index。不要直接访问swaggerui路径。
+4.页面上展示了api中的访问路径，参数列表，访问方法，及返回值。如果在api开发时把summary补充完整，swagger会显示的更加详细。

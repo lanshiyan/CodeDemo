@@ -1,0 +1,15 @@
+﻿1.根据数据库给项目添加相应的dll引用，例如使用mysql的MySql.Data.Entity
+2.添加ado.net实体数据模型，vs15之后就有codefirst的空模型和基于数据库的codefirst模型。看数据库情况，如果是没有数据库的情况，就直接从空模型创建
+3.添加模型的时候将数据库连接字符串写好，等系统运行的时候会创建数据库
+由模型变更引起的数据库迁移
+1.字段发生变化后，需要编译生成
+2.打开程序包管理控制台
+3.首次迁移需要enable-migrations -force（强制开启迁移，强制参数可以不加）。项目中会多出来个migrations文件夹，将文件夹下的配置文件中，自动迁移属性AutomaticMigrationsEnabled改为true。再添加一个迁移忽略数据丢失属性AutomaticMigrationDataLossAllowed，设置为true。
+4.强制命令迁移update-database，数据库跟模型就可以一一对应。
+
+
+出现异常：未为提供程序“MySql.Data.MySqlClient”找到任何 MigrationSqlGenerator。请在目标迁移配置类中使用 SetSqlGenerator 方法以注册其他 SQL 生成器。
+解决方案：在当前上下文所处的程序集做标记 [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))] 
+
+
+

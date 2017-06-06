@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf2Word", "Wpf2Word\Wpf2Wo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{5747CE65-9AAE-4D20-923D-6A764C72E232}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webapi", "Webapi\Webapi.csproj", "{BBB7810E-5709-48E8-812C-C6893E80C9BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{B9AB1851-0FF1-4188-8058-3EBABEFD983A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{5747CE65-9AAE-4D20-923D-6A764C72E232}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5747CE65-9AAE-4D20-923D-6A764C72E232}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5747CE65-9AAE-4D20-923D-6A764C72E232}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBB7810E-5709-48E8-812C-C6893E80C9BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBB7810E-5709-48E8-812C-C6893E80C9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBB7810E-5709-48E8-812C-C6893E80C9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBB7810E-5709-48E8-812C-C6893E80C9BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9AB1851-0FF1-4188-8058-3EBABEFD983A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9AB1851-0FF1-4188-8058-3EBABEFD983A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9AB1851-0FF1-4188-8058-3EBABEFD983A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9AB1851-0FF1-4188-8058-3EBABEFD983A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
