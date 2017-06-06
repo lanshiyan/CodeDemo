@@ -28,7 +28,7 @@ namespace WebApi.Common
                         actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
                     }
                 }
-                else//没有票据
+                else//没有票据，判断匿名
                 {
                     var attr =
                         actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>()
