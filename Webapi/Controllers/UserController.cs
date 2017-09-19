@@ -11,11 +11,11 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    
+
     public class UserController : ApiController
     {
 
-        [Route("user")]
+        [Route("user"), BaseAuthentication]
         public UserInfo GetUserById(int id)
         {
             using (var db = new DBModel())
@@ -24,21 +24,21 @@ namespace WebApi.Controllers
             }
         }
 
-        [Route("login"),HttpPost]
-        public bool LogIn(string username, string pwd)
+        [Route("login"),HttpGet]
+        public string LogIn(string username, string pwd)
         {
             if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(pwd))
             {
-                if (UserValidate.ValidateUser(username, pwd))
+                var ticket = UserValidate.GetTicketByUserData(username, pwd);
+                if (ticket != null)
                 {
-                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, username, DateTime.Now, DateTime.Now.AddMinutes(20), true, username+":"+ pwd, "/");
-                    var cookie = new HttpCookie(username, FormsAuthentication.Encrypt(ticket));
+                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));
                     cookie.HttpOnly = true;
                     HttpContext.Current.Response.Cookies.Add(cookie);
-                    return true;
+                    return $"sessionkey:{FormsAuthentication.Encrypt(ticket)}";
                 }
             }
-            return false;
+            return "";
 
         }
     }

@@ -1,4 +1,4 @@
-var Microsoft;
+﻿var Microsoft;
 (function (Microsoft) {
     var ApplicationInsights;
     (function (ApplicationInsights) {
@@ -965,7 +965,7 @@ var Microsoft;
                                 output[field] = "null";
                             }
                             else if (!value.toString) {
-                                output[field] = "invalid field: toString() is not defined.";
+                                output[field] = "invalid field: ToString() is not defined.";
                             }
                             else {
                                 output[field] = value.toString();

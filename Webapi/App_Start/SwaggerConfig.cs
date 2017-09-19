@@ -1,7 +1,11 @@
+using System.Runtime.Remoting.Messaging;
 using System.Web.Http;
 using WebActivatorEx;
 using WebApi;
 using Swashbuckle.Application;
+using Swashbuckle.Swagger;
+using System;
+using System.Web.Http.Description;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -13,7 +17,7 @@ namespace WebApi
         {
             var thisAssembly = typeof(SwaggerConfig).Assembly;
 
-            GlobalConfiguration.Configuration 
+            GlobalConfiguration.Configuration
                 .EnableSwagger(c =>
                     {
                         // By default, the service root url is inferred from the request used to access the docs.
@@ -57,7 +61,7 @@ namespace WebApi
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
                         //
-						// NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
+                        // NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
                         //c.ApiKey("apiKey")
                         //    .Description("API Key Authentication")
                         //    .Name("apiKey")
@@ -98,7 +102,7 @@ namespace WebApi
                         // more Xml comment files.
                         //
                         //c.IncludeXmlComments(GetXmlCommentsPath());
-
+                        c.DocumentFilter(() => { return new MyDocumentFilter(); });
                         // Swashbuckle makes a best attempt at generating Swagger compliant JSON schemas for the various types
                         // exposed in your API. However, there may be occasions when more control of the output is needed.
                         // This is supported through the "MapType" and "SchemaFilter" options:
@@ -186,7 +190,7 @@ namespace WebApi
                         // "Logical Name" is passed to the method as shown above.
                         //
                         //c.InjectJavaScript(thisAssembly, "Swashbuckle.Dummy.SwaggerExtensions.testScript1.js");
-
+                        c.InjectJavaScript(thisAssembly, "WebApi.scripts.swagger_lang.js");
                         // The swagger-ui renders boolean data types as a dropdown. By default, it provides "true" and "false"
                         // strings as the possible choices. You can use this option to change these to something else,
                         // for example 0 and 1.
@@ -241,6 +245,15 @@ namespace WebApi
                         //
                         //c.EnableApiKeySupport("apiKey", "header");
                     });
+        }
+    }
+
+    public class MyDocumentFilter : IDocumentFilter
+    {
+        public void Apply(SwaggerDocument swaggerDoc, SchemaRegistry schemaRegistry, IApiExplorer apiExplorer)
+        {
+            swaggerDoc.paths.Remove("/api/Swagger/Get");
+            swaggerDoc.paths.Remove("/api/Swagger");
         }
     }
 }

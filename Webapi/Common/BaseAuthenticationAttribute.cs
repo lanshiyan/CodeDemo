@@ -12,7 +12,7 @@ using System.Web.Security;
 
 namespace WebApi.Common
 {
-    public class BaseAuthenticationAttribute:ActionFilterAttribute
+    public class BaseAuthenticationAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
@@ -28,13 +28,38 @@ namespace WebApi.Common
                         actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
                     }
                 }
+                else if (actionContext.Request.Headers.GetCookies().Count > 0)//cookie验证
+                {
+                    var cookies = actionContext.Request.Headers.GetCookies();
+                    foreach (var cookie in cookies[0].Cookies)
+                    {
+                        if (cookie.Name == FormsAuthentication.FormsCookieName)
+                        {
+                            if (!UserValidate.ValidateUserTicket(cookie.Value))
+                            {
+                                actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                            }
+                            break;
+                        }
+                    }
+                }
                 else//没有票据，判断匿名
                 {
-                    var attr =
+                    //url参数验证
+                    string sessionKey =
+                        actionContext.Request.GetQueryNameValuePairs().FirstOrDefault(t => t.Key.ToLower() == "sessionkey").Value;
+                    if (string.IsNullOrEmpty(sessionKey))
+                    {//没有sessionkey通过匿名来验证
+                        var attr =
                         actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>()
                             .OfType<AllowAnonymousAttribute>();
-                    bool isanoymous = attr.Any(a => a is AllowAnonymousAttribute);
-                    if (!isanoymous)
+                        bool isanoymous = attr.Any(a => a is AllowAnonymousAttribute);
+                        if (!isanoymous)
+                        {
+                            actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                        }
+                    }
+                    if (!UserValidate.ValidateSessionKey(sessionKey))
                     {
                         actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
                     }
@@ -43,6 +68,6 @@ namespace WebApi.Common
             base.OnActionExecuting(actionContext);
         }
 
-       
+
     }
 }

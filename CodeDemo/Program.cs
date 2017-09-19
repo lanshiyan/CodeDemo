@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Common;
 
 namespace CodeDemo
 {
@@ -14,7 +15,7 @@ namespace CodeDemo
     {
         static void Main(string[] args)
         {
-
+           
 #if release
             Console.WriteLine("请输入类型：StringDemo|DateTimeDemo|RegexDemo");
             string key = Console.ReadLine();
@@ -31,7 +32,7 @@ namespace CodeDemo
             IDemo demo = new StringDemo();
             demo.DemoTest();
 #endif
-           
+
         }
 
         private static IDemo GetDemoInit(string key)

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Security;
 using System.Xml;
+using Common;
 
 namespace CodeDemo
 {
@@ -224,9 +225,91 @@ namespace CodeDemo
 
             #endregion
 
+            #region 匿名类 输出 python 字典列表[{},{}]  
+            //var list=new List<string>();
+            //list.Add(new {at=DateTime.Now.ToTimeStampS(),value=55}.ToJson());
+            //list.Add(new { at = DateTime.Now.AddMinutes(20).ToTimeStampS(), value = 56 }.ToJson());
+            //list.Add(new { at = DateTime.Now.AddTicks(50).ToTimeStampS(), value = 58 }.ToJson());
+
+            //Console.WriteLine(list.ToArray().toListString()); 
+            #endregion
+
+            #region 字典转json
+
+            //Dictionary<string,string> dict=new Dictionary<string, string>();
+            //dict.Add("01",new {name="4545",age=18}.ToJson());
+            //Console.WriteLine(dict.ToJson());
+            ////{"01":{"name":"4545","age":"18"}}
+
+
+            #endregion
+
+            #region string 引用
+            ////string是引用类型，但是在编译器中当做值类型来使用
+            ////想要使用引用的功能需要使用ref 
+            ////字符串是一个不可变对象，赋值的本质是将开辟内存指向新地址
+            //string s1 = "hellow", s2 = "world";
+            //Console.WriteLine($"before change :{s1}----{s2}");
+            //Change(s1, s2);
+            //Console.WriteLine($"after change :{s1}----{s2}");
+
+            //Console.WriteLine($"before change :{s1}----{s2}");
+            //Change(ref s1, ref s2);
+            //Console.WriteLine($"after change :{s1}----{s2}");
+
+            //string str1 = "123", str2 = "123";
+            //Console.WriteLine(object.ReferenceEquals(str1,str2));//true ，两个不同字符串对象内容相同。相同字符串是指向同一块内存的（即字符串在拘留池的位置是一样的）
+            //str2 = "456";//str2再次赋值不会影响str1
+            //Console.WriteLine(str1);//123
+
+            #endregion
+
+            #region 递归锁 有存疑
+            //同一个线程可以多次获取同一个递归锁，不会产生死锁。而如果一个线程多次获取同一个非递归锁，则会产生死锁。
+            //int i = 11;
+            //Console.WriteLine(11);
+            //LockTest(i);
+
+            #endregion
+
+           
+                
         }
 
         #region 测试方法
+
+        #region 递归锁
+
+        public void LockTest(int i)
+        {
+            lock (this)
+            {
+                if (i>10)
+                {
+                    i--;
+                    Console.WriteLine(i);
+                    LockTest(i);
+                }
+            }
+        }
+
+
+        #endregion
+
+        #region string 引用
+
+        public void Change(ref string s1, ref string s2)
+        {
+            s1 = s2;
+            s2 = s1 + s2;
+        }
+
+        public void Change(string s1, string s2)
+        {
+            s1 = s2;
+            s2 = s1 + s2;
+        }
+        #endregion
 
         #region 参数命名和默认值
         //第一个带默认值的参数，其后的参数都必须有默认值

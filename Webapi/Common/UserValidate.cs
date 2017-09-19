@@ -28,9 +28,30 @@ namespace WebApi.Common
             return false;
         }
 
-        public static bool ValidateUser(string username, string pwd)
+        public static FormsAuthenticationTicket GetTicketByUserData(string username, string pwd)
         {
-            return true;
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(pwd))
+            {
+                return null;
+            }
+            //todo:验证用户名密码
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, username, DateTime.Now, DateTime.Now.AddMinutes(20), true, username + ":" + pwd, "/");
+            return ticket;
+        }
+
+        public static string GetSessionKeyByUserData(string username,string pwd)
+        {
+            var ticket = GetTicketByUserData(username, pwd);
+            if (ticket!=null)
+            {
+                return FormsAuthentication.Encrypt(ticket);
+            }
+            return string.Empty;
+        }
+
+        public static bool ValidateSessionKey(string sessionKey)
+        {
+            return ValidateUserTicket(sessionKey);
         }
     }
 }
